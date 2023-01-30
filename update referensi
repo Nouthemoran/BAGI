@@ -1,0 +1,25 @@
+def update_view(request, task_id):
+    try:
+        # mengambil data task yang akan diubah berdasarkan task id
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        # Jika data task tidak ditemukan,
+        # maka akan di redirect ke halaman 404 (Page not found).
+        raise Http404("Task tidak ditemukan.")
+    # Mengecek method pada request
+    # Jika method-nya adalah POST, maka akan dijalankan
+    # proses validasi dan penyimpanan data
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            # Simpan perubahan data ke dalam table tasks
+            form.save()
+            # mengeset pesan sukses dan redirect ke halaman daftar task
+            messages.success(request, 'Sukses Mengubah Task.')
+            return redirect('todo:index')
+    # Jika method-nya bukan POST
+    else:
+        # membuat objek dari class TaskForm
+        form = TaskForm(instance=task)
+    # merender template form dengan memparsing data form
+    return render(request, 'todo/form.html', {'form': form})
