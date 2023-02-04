@@ -1,0 +1,14 @@
+atmel avr
+arduino uno
+arduino due
+arduino mega
+arduino leonardo
+arduino fio
+arduino lilypad
+arduino nano
+arduino mini
+arduino micro
+arduino ethernet
+arduino esplora
+arduino robot
+node MCU
